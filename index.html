@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Chat</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f2f2f2;
+  }
+  #chat-container {
+    width: 400px;
+    height: 400px;
+    border: 1px solid #ccc;
+    overflow-y: scroll;
+    padding: 10px;
+    background-color: #fff;
+  }
+  #message-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+  }
+  #send-btn {
+    padding: 10px 20px;
+    margin-top: 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <div id="chat-container"></div>
+  <textarea id="message-input" placeholder="Type your message here..."></textarea>
+  <button id="send-btn">Send</button>
+
+  <script>
+    const chatContainer = document.getElementById("chat-container");
+    const messageInput = document.getElementById("message-input");
+    const sendBtn = document.getElementById("send-btn");
+
+    sendBtn.addEventListener("click", () => {
+      const message = messageInput.value.trim();
+      if (message !== "") {
+        appendMessage("You", message);
+        messageInput.value = "";
+        messageInput.focus();
+        // In a real application, you would send the message to the server here
+        // and handle the response (e.g., displaying messages from other users)
+      }
+    });
+
+    function appendMessage(sender, message) {
+      const messageElement = document.createElement("div");
+      messageElement.textContent = `${sender}: ${message}`;
+      chatContainer.appendChild(messageElement);
+      // Automatically scroll to the bottom of the chat container
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+  </script>
+</body>
+</html>
